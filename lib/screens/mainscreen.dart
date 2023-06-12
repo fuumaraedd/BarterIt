@@ -46,11 +46,10 @@ class _MainScreenState extends State<MainScreen> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        backgroundColor: const Color.fromARGB(255, 255, 131, 37),
         shadowColor: Colors.black,
         title: Text(
           maintitle,
-          style: const TextStyle(fontSize: 22, color: Colors.white),
+          style: const TextStyle(fontSize: 22),
         ),
         centerTitle: true,
       ),
@@ -61,9 +60,7 @@ class _MainScreenState extends State<MainScreen> {
         elevation: 0,
         iconSize: 26,
         selectedFontSize: 15,
-        selectedItemColor: const Color.fromARGB(255, 255, 131, 37),
         unselectedFontSize: 15,
-        unselectedItemColor: const Color.fromARGB(255, 146, 146, 146),
         onTap: onTabTapped,
         currentIndex: _currentIndex,
         items: const [

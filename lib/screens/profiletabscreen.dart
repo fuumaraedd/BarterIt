@@ -41,6 +41,7 @@ class _ProfileTabScreenState extends State<ProfileTabScreen> {
             height: screenHeight * 0.25,
             width: screenWidth,
             child: Card(
+              elevation: 8,
               child:
                   Row(mainAxisAlignment: MainAxisAlignment.center, children: [
                 Container(
@@ -72,28 +73,31 @@ class _ProfileTabScreenState extends State<ProfileTabScreen> {
             ),
           ),
           Container(
-            height: 250,
+            height: 240,
           ),
           Expanded(
-              child: ListView(
-            children: [
-              ElevatedButton(
-                onPressed: _updateNameDialog,
-                child: const Text("EDIT NAME"),
-              ),
-              ElevatedButton(
-                onPressed: _updatePhoneDialog,
-                child: const Text("EDIT PHONE NUMBER"),
-              ),
-              ElevatedButton(
-                onPressed: _updateEmailDialog,
-                child: const Text("EDIT E-MAIL"),
-              ),
-              ElevatedButton(
-                onPressed: onLogoutDialog,
-                child: const Text("LOGOUT"),
-              ),
-            ],
+              child: Padding(
+            padding: const EdgeInsets.all(10.0),
+            child: ListView(
+              children: [
+                ElevatedButton(
+                  onPressed: _updateNameDialog,
+                  child: const Text("EDIT NAME"),
+                ),
+                ElevatedButton(
+                  onPressed: _updatePhoneDialog,
+                  child: const Text("EDIT PHONE NUMBER"),
+                ),
+                ElevatedButton(
+                  onPressed: _updateEmailDialog,
+                  child: const Text("EDIT E-MAIL"),
+                ),
+                ElevatedButton(
+                  onPressed: onLogoutDialog,
+                  child: const Text("LOGOUT"),
+                ),
+              ],
+            ),
           )),
         ]),
       ),

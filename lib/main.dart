@@ -13,7 +13,14 @@ class MyApp extends StatelessWidget {
     return MaterialApp(
       title: 'BarterIt',
       theme: ThemeData(
-        primarySwatch: Colors.orange,
+        useMaterial3: true,
+        elevatedButtonTheme: ElevatedButtonThemeData(
+          style: ElevatedButton.styleFrom(
+            backgroundColor: const Color.fromARGB(
+                255, 30, 13, 62), // background (button) color
+            foregroundColor: Colors.white, // foreground (text) color
+          ),
+        ),
       ),
       home: const SplashScreen(),
     );

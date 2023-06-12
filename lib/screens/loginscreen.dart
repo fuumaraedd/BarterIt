@@ -54,13 +54,11 @@ class _LoginScreenState extends State<LoginScreen> {
                 height: 20,
               ),
               Container(
-                width: screenWidth,
+                width: screenWidth * 0.9,
                 alignment: Alignment.center,
-                color: const Color.fromARGB(255, 255, 131, 37),
                 child: const Text("Join us now to access exclusive features!",
                     style: TextStyle(
-                      fontSize: 19,
-                      color: Colors.white,
+                      fontSize: 16,
                     )),
               ),
               const SizedBox(
@@ -134,7 +132,7 @@ class _LoginScreenState extends State<LoginScreen> {
                                   onTap: null,
                                   child: const Text('Remember Me',
                                       style: TextStyle(
-                                        fontSize: 16,
+                                        fontSize: 15,
                                         fontWeight: FontWeight.bold,
                                       )),
                                 ),
@@ -175,7 +173,7 @@ class _LoginScreenState extends State<LoginScreen> {
                   style: TextStyle(
                     fontStyle: FontStyle.italic,
                     fontSize: 16,
-                    color: Color.fromARGB(255, 255, 131, 37),
+                    color: Color.fromARGB(255, 37, 84, 255),
                   ),
                 ),
               ),
@@ -190,7 +188,7 @@ class _LoginScreenState extends State<LoginScreen> {
                 height: 50,
                 elevation: 10,
                 onPressed: _goToRegister,
-                color: Colors.green,
+                color: const Color.fromARGB(255, 33, 20, 53),
                 textColor: Theme.of(context).colorScheme.onError,
                 child: const Text(
                   "Don't have an account? Register now!",
