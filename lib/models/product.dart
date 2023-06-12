@@ -4,7 +4,6 @@ class Product {
   String? productName;
   String? productType;
   String? productDesc;
-  String? productPrice;
   String? productQty;
   String? productLat;
   String? productLong;
@@ -18,7 +17,6 @@ class Product {
       this.productName,
       this.productType,
       this.productDesc,
-      this.productPrice,
       this.productQty,
       this.productLat,
       this.productLong,
@@ -32,7 +30,6 @@ class Product {
     productName = json['product_name'];
     productType = json['product_type'];
     productDesc = json['product_desc'];
-    productPrice = json['product_price'];
     productQty = json['product_qty'];
     productLat = json['product_lat'];
     productLong = json['product_long'];
@@ -48,7 +45,6 @@ class Product {
     data['product_name'] = productName;
     data['product_type'] = productType;
     data['product_desc'] = productDesc;
-    data['product_price'] = productPrice;
     data['product_qty'] = productQty;
     data['product_lat'] = productLat;
     data['product_long'] = productLong;

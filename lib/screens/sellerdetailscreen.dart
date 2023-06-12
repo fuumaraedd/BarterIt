@@ -103,19 +103,6 @@ class _SellerDetailsScreenState extends State<SellerDetailsScreen> {
                 TableRow(children: [
                   const TableCell(
                     child: Text(
-                      "Price",
-                      style: TextStyle(fontWeight: FontWeight.bold),
-                    ),
-                  ),
-                  TableCell(
-                    child: Text(
-                      "RM ${double.parse(widget.userproduct.productPrice.toString()).toStringAsFixed(2)}",
-                    ),
-                  )
-                ]),
-                TableRow(children: [
-                  const TableCell(
-                    child: Text(
                       "Location",
                       style: TextStyle(fontWeight: FontWeight.bold),
                     ),

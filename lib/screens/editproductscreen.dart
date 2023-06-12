@@ -62,9 +62,6 @@ class _EditProductScreenState extends State<EditProductScreen> {
         widget.userproduct.productName.toString();
     _productdescEditingController.text =
         widget.userproduct.productDesc.toString();
-    _productpriceEditingController.text =
-        double.parse(widget.userproduct.productPrice.toString())
-            .toStringAsFixed(2);
     _productqtyEditingController.text =
         widget.userproduct.productQty.toString();
     _prstateEditingController.text = widget.userproduct.productState.toString();

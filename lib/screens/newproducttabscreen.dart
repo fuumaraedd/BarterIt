@@ -193,23 +193,6 @@ class _NewProductTabScreenState extends State<NewProductTabScreen> {
                             child: TextFormField(
                                 textInputAction: TextInputAction.next,
                                 validator: (val) =>
-                                    val!.isEmpty ? "Invalid price" : null,
-                                onFieldSubmitted: (v) {},
-                                controller: _productpriceEditingController,
-                                keyboardType: TextInputType.number,
-                                decoration: const InputDecoration(
-                                    labelText: 'Product Price',
-                                    labelStyle: TextStyle(),
-                                    icon: Icon(Icons.attach_money),
-                                    focusedBorder: OutlineInputBorder(
-                                      borderSide: BorderSide(width: 2.0),
-                                    ))),
-                          ),
-                          Flexible(
-                            flex: 5,
-                            child: TextFormField(
-                                textInputAction: TextInputAction.next,
-                                validator: (val) =>
                                     val!.isEmpty ? "Invalid quantity" : null,
                                 controller: _productqtyEditingController,
                                 keyboardType: TextInputType.number,
@@ -376,7 +359,6 @@ class _NewProductTabScreenState extends State<NewProductTabScreen> {
   void insertProduct() {
     String productname = _productnameEditingController.text;
     String productdesc = _productdescEditingController.text;
-    String productprice = _productpriceEditingController.text;
     String productqty = _productqtyEditingController.text;
     String state = _prstateEditingController.text;
     String locality = _prlocalEditingController.text;
@@ -389,7 +371,6 @@ class _NewProductTabScreenState extends State<NewProductTabScreen> {
           "userid": widget.user.id.toString(),
           "productname": productname,
           "productdesc": productdesc,
-          "productprice": productprice,
           "productqty": productqty,
           "type": selectedType,
           "latitude": prlat,

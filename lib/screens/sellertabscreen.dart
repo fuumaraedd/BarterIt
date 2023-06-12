@@ -105,10 +105,6 @@ class _SellerTabScreenState extends State<SellerTabScreen> {
                                               fontWeight: FontWeight.bold),
                                         ),
                                         Text(
-                                          "RM ${double.parse(productList[index].productPrice.toString()).toStringAsFixed(2)}",
-                                          style: const TextStyle(fontSize: 14),
-                                        ),
-                                        Text(
                                           "${productList[index].productQty} left",
                                           style: TextStyle(
                                               fontSize: 14,
