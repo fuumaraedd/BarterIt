@@ -5,6 +5,7 @@ import 'package:barterit/myconfig.dart';
 import 'package:barterit/screens/mainscreen.dart';
 import 'package:barterit/screens/registrationscreen.dart';
 import 'package:barterit/screens/resetpassword.dart';
+import 'package:barterit/splashscreen.dart';
 import 'package:flutter/material.dart';
 import 'package:http/http.dart' as http;
 import 'package:shared_preferences/shared_preferences.dart';
@@ -56,10 +57,9 @@ class _LoginScreenState extends State<LoginScreen> {
               Container(
                 width: screenWidth * 0.9,
                 alignment: Alignment.center,
-                child: const Text("Join us now to access exclusive features!",
-                    style: TextStyle(
-                      fontSize: 16,
-                    )),
+                child: const Text("LOGIN",
+                    style:
+                        TextStyle(fontSize: 16, fontWeight: FontWeight.bold)),
               ),
               const SizedBox(
                 height: 10,
@@ -166,16 +166,32 @@ class _LoginScreenState extends State<LoginScreen> {
               const SizedBox(
                 height: 8,
               ),
-              GestureDetector(
-                onTap: _forgotDialog,
-                child: const Text(
-                  "Forgot Password?",
-                  style: TextStyle(
-                    fontStyle: FontStyle.italic,
-                    fontSize: 16,
-                    color: Color.fromARGB(255, 37, 84, 255),
+              Row(
+                mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                children: [
+                  GestureDetector(
+                    onTap: _forgotDialog,
+                    child: const Text(
+                      "Forgot Password?",
+                      style: TextStyle(
+                        fontStyle: FontStyle.italic,
+                        fontSize: 16,
+                        color: Color.fromARGB(255, 37, 84, 255),
+                      ),
+                    ),
                   ),
-                ),
+                  GestureDetector(
+                    onTap: _guestDialog,
+                    child: const Text(
+                      "Join as Guest",
+                      style: TextStyle(
+                        fontStyle: FontStyle.italic,
+                        fontSize: 16,
+                        color: Color.fromARGB(255, 255, 56, 56),
+                      ),
+                    ),
+                  ),
+                ],
               ),
               const SizedBox(
                 height: 25,
@@ -289,5 +305,11 @@ class _LoginScreenState extends State<LoginScreen> {
   void _goToRegister() {
     Navigator.push(context,
         MaterialPageRoute(builder: (content) => const RegistrationScreen()));
+  }
+
+  void _guestDialog() {
+    Navigator.of(context).popUntil((route) => route.isFirst);
+    Navigator.pushReplacement(
+        context, MaterialPageRoute(builder: (content) => const SplashScreen()));
   }
 }

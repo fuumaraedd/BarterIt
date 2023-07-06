@@ -23,6 +23,7 @@ class _NewProductTabScreenState extends State<NewProductTabScreen> {
   int _index = 0;
   List<File> _imageList = [];
   File? _image;
+  double _value = 0.0;
   var pathAsset = "assets/images/camera.png";
   final _formKey = GlobalKey<FormState>();
   late double screenHeight, screenWidth, cardwitdh;
@@ -30,13 +31,15 @@ class _NewProductTabScreenState extends State<NewProductTabScreen> {
       TextEditingController();
   final TextEditingController _productdescEditingController =
       TextEditingController();
-  final TextEditingController _productpriceEditingController =
-      TextEditingController();
   final TextEditingController _productqtyEditingController =
+      TextEditingController();
+  final TextEditingController _productprEditingController =
       TextEditingController();
   final TextEditingController _prstateEditingController =
       TextEditingController();
   final TextEditingController _prlocalEditingController =
+      TextEditingController();
+  final TextEditingController _prconditionEditingController =
       TextEditingController();
 
   String selectedType = "Home & Living";
@@ -68,6 +71,7 @@ class _NewProductTabScreenState extends State<NewProductTabScreen> {
   Widget build(BuildContext context) {
     screenHeight = MediaQuery.of(context).size.height;
     screenWidth = MediaQuery.of(context).size.width;
+    TextEditingController sliderController = TextEditingController();
     return Scaffold(
         appBar: AppBar(title: const Text("Insert New Product"), actions: []),
         body: Column(children: [
@@ -186,25 +190,66 @@ class _NewProductTabScreenState extends State<NewProductTabScreen> {
                               focusedBorder: OutlineInputBorder(
                                 borderSide: BorderSide(width: 2.0),
                               ))),
-                      Row(
-                        children: [
-                          Flexible(
-                            flex: 5,
-                            child: TextFormField(
-                                textInputAction: TextInputAction.next,
-                                validator: (val) =>
-                                    val!.isEmpty ? "Invalid quantity" : null,
-                                controller: _productqtyEditingController,
-                                keyboardType: TextInputType.number,
-                                decoration: const InputDecoration(
-                                    labelText: 'Product quantity',
-                                    labelStyle: TextStyle(),
-                                    icon: Icon(Icons.numbers),
-                                    focusedBorder: OutlineInputBorder(
-                                      borderSide: BorderSide(width: 2.0),
-                                    ))),
-                          ),
-                        ],
+                      Row(children: [
+                        Flexible(
+                          flex: 5,
+                          child: TextFormField(
+                              textInputAction: TextInputAction.next,
+                              validator: (val) =>
+                                  val!.isEmpty ? "Invalid quantity" : null,
+                              controller: _productqtyEditingController,
+                              keyboardType: TextInputType.number,
+                              decoration: const InputDecoration(
+                                  labelText: 'Product quantity',
+                                  labelStyle: TextStyle(),
+                                  icon: Icon(Icons.numbers),
+                                  focusedBorder: OutlineInputBorder(
+                                    borderSide: BorderSide(width: 2.0),
+                                  ))),
+                        ),
+                        Flexible(
+                          flex: 5,
+                          child: TextFormField(
+                              textInputAction: TextInputAction.next,
+                              validator: (val) =>
+                                  val!.isEmpty ? "Invalid price" : null,
+                              onFieldSubmitted: (v) {},
+                              controller: _productprEditingController,
+                              keyboardType: TextInputType.number,
+                              decoration: const InputDecoration(
+                                  labelText: 'Product Price',
+                                  labelStyle: TextStyle(),
+                                  icon: Icon(Icons.attach_money),
+                                  focusedBorder: OutlineInputBorder(
+                                    borderSide: BorderSide(width: 2.0),
+                                  ))),
+                        ),
+                      ]),
+                      StatefulBuilder(
+                        builder: (context, state) => Column(
+                          mainAxisAlignment: MainAxisAlignment.center,
+                          children: [
+                            const SizedBox(
+                              height: 15,
+                            ),
+                            const Text("Product Condition",
+                                style: TextStyle(fontSize: 16)),
+                            Slider(
+                              divisions: 10,
+                              value: _value,
+                              max: 10,
+                              onChanged: (double value) {
+                                setState(() => _value = value);
+                              },
+                            ),
+                            Text("Condition ${_value.toInt()}/10",
+                                style: const TextStyle(
+                                    fontSize: 14, fontStyle: FontStyle.italic)),
+                            const SizedBox(
+                              height: 10,
+                            )
+                          ],
+                        ),
                       ),
                       Row(children: [
                         Flexible(
@@ -360,8 +405,10 @@ class _NewProductTabScreenState extends State<NewProductTabScreen> {
     String productname = _productnameEditingController.text;
     String productdesc = _productdescEditingController.text;
     String productqty = _productqtyEditingController.text;
+    String productpr = _productprEditingController.text;
     String state = _prstateEditingController.text;
     String locality = _prlocalEditingController.text;
+    String condition = _value.toString();
     String base64Image1 = base64Encode(_imageList[0].readAsBytesSync());
     String base64Image2 = base64Encode(_imageList[1].readAsBytesSync());
     String base64Image3 = base64Encode(_imageList[2].readAsBytesSync());
@@ -372,6 +419,7 @@ class _NewProductTabScreenState extends State<NewProductTabScreen> {
           "productname": productname,
           "productdesc": productdesc,
           "productqty": productqty,
+          "productpr": productpr,
           "type": selectedType,
           "latitude": prlat,
           "longitude": prlong,
@@ -380,6 +428,7 @@ class _NewProductTabScreenState extends State<NewProductTabScreen> {
           "image1": base64Image1,
           "image2": base64Image2,
           "image3": base64Image3,
+          "condition": condition,
         }).then((response) {
       if (response.statusCode == 200) {
         var jsondata = jsonDecode(response.body);

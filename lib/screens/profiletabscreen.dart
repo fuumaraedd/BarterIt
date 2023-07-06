@@ -1,5 +1,6 @@
 import 'dart:async';
 import 'dart:convert';
+import 'package:barterit/screens/registrationscreen.dart';
 import 'package:http/http.dart' as http;
 import 'package:barterit/models/user.dart';
 import 'package:barterit/myconfig.dart';
@@ -18,10 +19,12 @@ class ProfileTabScreen extends StatefulWidget {
 class _ProfileTabScreenState extends State<ProfileTabScreen> {
   late double screenHeight, screenWidth, cardwitdh;
   String maintitle = "Profile";
+  bool isButtonActive = true;
 
   @override
   void initState() {
     super.initState();
+    checkUserLogin();
   }
 
   @override
@@ -58,15 +61,48 @@ class _ProfileTabScreenState extends State<ProfileTabScreen> {
                         const SizedBox(
                           height: 50,
                         ),
-                        Text(
-                          widget.user.name.toString(),
-                          style: const TextStyle(
-                            fontSize: 24,
-                            color: Color.fromARGB(255, 22, 20, 124),
+                        if (isButtonActive)
+                          Text(
+                            widget.user.name.toString(),
+                            style: const TextStyle(
+                              fontSize: 24,
+                              color: Color.fromARGB(255, 22, 20, 124),
+                            ),
                           ),
-                        ),
-                        Text(widget.user.email.toString()),
-                        Text(widget.user.phone.toString()),
+                        if (isButtonActive)
+                          Row(
+                            mainAxisAlignment: MainAxisAlignment.center,
+                            children: [
+                              const Icon(Icons.email),
+                              const SizedBox(width: 10),
+                              Text(widget.user.email.toString()),
+                            ],
+                          ),
+                        if (isButtonActive)
+                          Row(
+                            mainAxisAlignment: MainAxisAlignment.center,
+                            children: [
+                              const Icon(Icons.phone),
+                              const SizedBox(width: 10),
+                              Text(widget.user.phone.toString()),
+                            ],
+                          ),
+                        if (!isButtonActive)
+                          const Text(
+                            "Guest User",
+                            style: TextStyle(
+                              fontSize: 24,
+                              color: Color.fromARGB(255, 22, 20, 124),
+                            ),
+                          ),
+                        if (!isButtonActive)
+                          const Text(
+                            "Welcome to BarterIt",
+                            style: TextStyle(
+                              fontSize: 15,
+                              color: Color.fromARGB(255, 22, 20, 124),
+                            ),
+                          ),
                       ],
                     )),
               ]),
@@ -80,22 +116,37 @@ class _ProfileTabScreenState extends State<ProfileTabScreen> {
             padding: const EdgeInsets.all(10.0),
             child: ListView(
               children: [
-                ElevatedButton(
-                  onPressed: _updateNameDialog,
-                  child: const Text("EDIT NAME"),
-                ),
-                ElevatedButton(
-                  onPressed: _updatePhoneDialog,
-                  child: const Text("EDIT PHONE NUMBER"),
-                ),
-                ElevatedButton(
-                  onPressed: _updateEmailDialog,
-                  child: const Text("EDIT E-MAIL"),
-                ),
-                ElevatedButton(
-                  onPressed: onLogoutDialog,
-                  child: const Text("LOGOUT"),
-                ),
+                if (isButtonActive)
+                  ElevatedButton(
+                    onPressed: _updateNameDialog,
+                    child: const Text("EDIT NAME"),
+                  ),
+                if (isButtonActive)
+                  ElevatedButton(
+                    onPressed: _updatePhoneDialog,
+                    child: const Text("EDIT PHONE NUMBER"),
+                  ),
+                if (isButtonActive)
+                  ElevatedButton(
+                    onPressed: _updateEmailDialog,
+                    child: const Text("EDIT E-MAIL"),
+                  ),
+                if (isButtonActive)
+                  ElevatedButton(
+                    onPressed: onLogoutDialog,
+                    child: const Text("LOGOUT"),
+                  ),
+                if (!isButtonActive) const SizedBox(height: 110),
+                if (!isButtonActive)
+                  ElevatedButton(
+                    onPressed: onLoginDialog,
+                    child: const Text("LOGIN"),
+                  ),
+                if (!isButtonActive)
+                  ElevatedButton(
+                    onPressed: onRegisterDialog,
+                    child: const Text("REGISTER"),
+                  ),
               ],
             ),
           )),
@@ -367,5 +418,25 @@ class _ProfileTabScreenState extends State<ProfileTabScreen> {
         );
       },
     );
+  }
+
+  void checkUserLogin() {
+    if (widget.user.id == "na") {
+      isButtonActive = false;
+    } else {
+      isButtonActive = true;
+    }
+  }
+
+  void onLoginDialog() {
+    Navigator.of(context).popUntil((route) => route.isFirst);
+    Navigator.push(
+        context, MaterialPageRoute(builder: (content) => const LoginScreen()));
+  }
+
+  void onRegisterDialog() {
+    Navigator.of(context).popUntil((route) => route.isFirst);
+    Navigator.push(context,
+        MaterialPageRoute(builder: (content) => const RegistrationScreen()));
   }
 }

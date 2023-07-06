@@ -37,7 +37,7 @@ class _SellerDetailsScreenState extends State<SellerDetailsScreen> {
                     width: screenWidth,
                     fit: BoxFit.cover,
                     imageUrl:
-                        "${MyConfig().server}/barterit/assets/products/${widget.userproduct.productId}.png",
+                        "${MyConfig().server}/barterit/assets/products/${widget.userproduct.productId}a.png",
                     placeholder: (context, url) =>
                         const LinearProgressIndicator(),
                     errorWidget: (context, url, error) =>
@@ -77,7 +77,7 @@ class _SellerDetailsScreenState extends State<SellerDetailsScreen> {
                 TableRow(children: [
                   const TableCell(
                     child: Text(
-                      "Catch Type",
+                      "Product Type",
                       style: TextStyle(fontWeight: FontWeight.bold),
                     ),
                   ),
@@ -97,6 +97,19 @@ class _SellerDetailsScreenState extends State<SellerDetailsScreen> {
                   TableCell(
                     child: Text(
                       widget.userproduct.productQty.toString(),
+                    ),
+                  )
+                ]),
+                TableRow(children: [
+                  const TableCell(
+                    child: Text(
+                      "Price",
+                      style: TextStyle(fontWeight: FontWeight.bold),
+                    ),
+                  ),
+                  TableCell(
+                    child: Text(
+                      "RM ${double.parse(widget.userproduct.productPrice.toString()).toStringAsFixed(2)}",
                     ),
                   )
                 ]),

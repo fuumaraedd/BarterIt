@@ -78,7 +78,7 @@ class SplashScreenState extends State<SplashScreen> {
                 () => Navigator.pushReplacement(
                     context,
                     MaterialPageRoute(
-                        builder: (content) => const LoginScreen())));
+                        builder: (content) => MainScreen(user: user))));
           }
         } else {
           user = User(

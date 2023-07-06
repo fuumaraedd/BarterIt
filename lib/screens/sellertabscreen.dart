@@ -1,4 +1,6 @@
 import 'dart:convert';
+import 'dart:developer';
+import 'package:barterit/screens/editproductscreen.dart';
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:barterit/models/product.dart';
@@ -20,13 +22,17 @@ class _SellerTabScreenState extends State<SellerTabScreen> {
   late int axiscount = 2;
   late List<Widget> tabchildren;
   String maintitle = "Seller";
+  int numofpage = 1, curpage = 1;
+  int numberofresult = 0;
+  var colour;
+  int cartqty = 0;
   List<Product> productList = <Product>[];
   var refreshKey = GlobalKey<RefreshIndicatorState>();
 
   @override
   void initState() {
     super.initState();
-    loadsellerProducts();
+    loadSellerProducts(1);
   }
 
   @override
@@ -79,6 +85,17 @@ class _SellerTabScreenState extends State<SellerTabScreen> {
                               onLongPress: () {
                                 onDeleteDialog(index);
                               },
+                              onTap: () async {
+                                Product currentProduct = Product.fromJson(
+                                    productList[index].toJson());
+                                await Navigator.push(
+                                    context,
+                                    MaterialPageRoute(
+                                        builder: (content) => EditProductScreen(
+                                              user: widget.user,
+                                              userproduct: currentProduct,
+                                            )));
+                              },
                               child: Padding(
                                 padding: const EdgeInsets.all(8.0),
                                 child: Column(children: [
@@ -101,8 +118,12 @@ class _SellerTabScreenState extends State<SellerTabScreen> {
                                               .productName
                                               .toString(),
                                           style: const TextStyle(
-                                              fontSize: 20,
+                                              fontSize: 18,
                                               fontWeight: FontWeight.bold),
+                                        ),
+                                        Text(
+                                          "RM ${double.parse(productList[index].productPrice.toString()).toStringAsFixed(2)}",
+                                          style: const TextStyle(fontSize: 14),
                                         ),
                                         Text(
                                           "${productList[index].productQty} left",
@@ -119,7 +140,31 @@ class _SellerTabScreenState extends State<SellerTabScreen> {
                           );
                         },
                       )),
-                ))
+                )),
+                SizedBox(
+                  height: 40,
+                  child: ListView.builder(
+                    shrinkWrap: true,
+                    itemCount: numofpage,
+                    scrollDirection: Axis.horizontal,
+                    itemBuilder: (context, index) {
+                      if ((curpage - 1) == index) {
+                        colour = Colors.red;
+                      } else {
+                        colour = Colors.black;
+                      }
+                      return TextButton(
+                          onPressed: () {
+                            curpage = index + 1;
+                            loadSellerProducts(index + 1);
+                          },
+                          child: Text(
+                            (index + 1).toString(),
+                            style: TextStyle(color: colour, fontSize: 18),
+                          ));
+                    },
+                  ),
+                ),
               ]),
             ),
       floatingActionButton: FloatingActionButton(
@@ -131,10 +176,10 @@ class _SellerTabScreenState extends State<SellerTabScreen> {
                       builder: (content) => NewProductTabScreen(
                             user: widget.user,
                           )));
-              loadsellerProducts();
             } else {
               ScaffoldMessenger.of(context).showSnackBar(const SnackBar(
-                  content: Text("Please login/register an account")));
+                  content: Text(
+                      "Please login/register an account to start selling")));
             }
           },
           child: const Text(
@@ -142,23 +187,6 @@ class _SellerTabScreenState extends State<SellerTabScreen> {
             style: TextStyle(fontSize: 32),
           )),
     );
-  }
-
-  void loadsellerProducts() {
-    http.post(Uri.parse("${MyConfig().server}/barterit/php/load_product.php"),
-        body: {"userid": widget.user.id}).then((response) {
-      productList.clear();
-      if (response.statusCode == 200) {
-        var jsondata = jsonDecode(response.body);
-        if (jsondata['status'] == "success") {
-          var extractdata = jsondata['data'];
-          extractdata['products'].forEach((v) {
-            productList.add(Product.fromJson(v));
-          });
-        }
-        setState(() {});
-      }
-    });
   }
 
   void onDeleteDialog(int index) {
@@ -209,7 +237,6 @@ class _SellerTabScreenState extends State<SellerTabScreen> {
         if (jsondata['status'] == "success") {
           ScaffoldMessenger.of(context)
               .showSnackBar(const SnackBar(content: Text("Delete Success")));
-          loadsellerProducts();
         } else {
           ScaffoldMessenger.of(context)
               .showSnackBar(const SnackBar(content: Text("Failed")));
@@ -218,7 +245,66 @@ class _SellerTabScreenState extends State<SellerTabScreen> {
     });
   }
 
+  void loadProducts(int pg) {
+    if (widget.user.id == "na") {
+      setState(() {});
+      return;
+    }
+    http.post(Uri.parse("${MyConfig().server}/barterit/php/load_product.php"),
+        body: {
+          "cartuserid": widget.user.id,
+          "pageno": pg.toString()
+        }).then((response) {
+      log(response.body);
+      productList.clear();
+      if (response.statusCode == 200) {
+        var jsondata = jsonDecode(response.body);
+        if (jsondata['status'] == "success") {
+          numofpage = int.parse(jsondata['numofpage']);
+          numberofresult = int.parse(jsondata['numberofresult']);
+          var extractdata = jsondata['data'];
+          cartqty = int.parse(jsondata['cartqty'].toString());
+          extractdata['products'].forEach((v) {
+            productList.add(Product.fromJson(v));
+          });
+        }
+        setState(() {});
+      }
+    });
+  }
+
   Future<void> refreshList() async {
     return Future.delayed(Duration(seconds: 2));
+  }
+
+  void loadSellerProducts(int pg) {
+    if (widget.user.id == "na") {
+      setState(() {});
+      return;
+    }
+
+    http.post(Uri.parse("${MyConfig().server}/barterit/php/load_product.php"),
+        body: {
+          "userid": widget.user.id,
+          "pageno": pg.toString()
+        }).then((response) {
+      log(response.body);
+      productList.clear();
+      if (response.statusCode == 200) {
+        var jsondata = jsonDecode(response.body);
+        if (jsondata['status'] == "success") {
+          numofpage = int.parse(jsondata['numofpage']);
+          numberofresult = int.parse(jsondata['numberofresult']);
+          var extractdata = jsondata['data'];
+          extractdata['products'].forEach((v) {
+            productList.add(Product.fromJson(v));
+          });
+          print(productList[0].productName);
+        } else {
+          setState(() {});
+        }
+        setState(() {});
+      }
+    });
   }
 }
