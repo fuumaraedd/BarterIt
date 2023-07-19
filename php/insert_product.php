@@ -10,8 +10,8 @@ include_once("dbconnect.php");
 $userid = $_POST['userid'];
 $product_name = $_POST['productname'];
 $product_desc = $_POST['productdesc'];
-$product_price = $_POST['productprice'];
 $product_qty = $_POST['productqty'];
+$product_pr = $_POST['productpr'];
 $product_type = $_POST['type'];
 $latitude = $_POST['latitude'];
 $longitude = $_POST['longitude'];
@@ -20,8 +20,9 @@ $locality = $_POST['locality'];
 $image1 = $_POST['image1'];
 $image2 = $_POST['image2'];
 $image3 = $_POST['image3'];
+$condition = $_POST['condition'];
 
-$sqlinsert = "INSERT INTO `tbl_products`(`user_id`,`product_name`, `product_desc`, `product_type`, `product_price`, `product_qty`, `product_lat`, `product_long`, `product_state`, `product_locality`) VALUES ('$userid','$product_name','$product_desc','$product_type','$product_price','$product_qty','$latitude','$longitude','$state','$locality')";
+$sqlinsert = "INSERT INTO `tbl_products`(`user_id`,`product_name`, `product_desc`, `product_type`, `product_qty`, `product_pr`,`product_lat`, `product_long`, `product_state`, `product_locality`,  `product_condition`) VALUES ('$userid','$product_name','$product_desc','$product_type','$product_qty','$product_pr','$latitude','$longitude','$state','$locality','$condition')";
 
 if ($conn->query($sqlinsert) === TRUE) {
 	$filename = mysqli_insert_id($conn);
