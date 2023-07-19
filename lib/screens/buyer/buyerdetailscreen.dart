@@ -5,7 +5,7 @@ import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
 import 'package:barterit/models/product.dart';
 import 'package:barterit/models/user.dart';
-import 'package:barterit/myconfig.dart';
+import 'package:barterit/appconfig/myconfig.dart';
 import 'package:http/http.dart' as http;
 
 class BuyerDetailsScreen extends StatefulWidget {

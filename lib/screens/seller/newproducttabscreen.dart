@@ -7,7 +7,7 @@ import 'package:image_picker/image_picker.dart';
 import 'package:barterit/models/user.dart';
 import 'package:image_cropper/image_cropper.dart';
 import 'package:http/http.dart' as http;
-import 'package:barterit/myconfig.dart';
+import 'package:barterit/appconfig/myconfig.dart';
 
 class NewProductTabScreen extends StatefulWidget {
   final User user;

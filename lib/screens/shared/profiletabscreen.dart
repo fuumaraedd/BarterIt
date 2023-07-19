@@ -1,10 +1,10 @@
 import 'dart:async';
 import 'dart:convert';
-import 'package:barterit/screens/registrationscreen.dart';
+import 'package:barterit/screens/shared/registrationscreen.dart';
 import 'package:http/http.dart' as http;
 import 'package:barterit/models/user.dart';
-import 'package:barterit/myconfig.dart';
-import 'package:barterit/screens/loginscreen.dart';
+import 'package:barterit/appconfig/myconfig.dart';
+import 'package:barterit/screens/shared/loginscreen.dart';
 import 'package:flutter/material.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
@@ -109,7 +109,7 @@ class _ProfileTabScreenState extends State<ProfileTabScreen> {
             ),
           ),
           Container(
-            height: 240,
+            height: 200,
           ),
           Expanded(
               child: Padding(
@@ -130,6 +130,11 @@ class _ProfileTabScreenState extends State<ProfileTabScreen> {
                   ElevatedButton(
                     onPressed: _updateEmailDialog,
                     child: const Text("EDIT E-MAIL"),
+                  ),
+                if (isButtonActive)
+                  ElevatedButton(
+                    onPressed: _updatePasswordDialog,
+                    child: const Text("EDIT PASSWORD"),
                   ),
                 if (isButtonActive)
                   ElevatedButton(
@@ -438,5 +443,105 @@ class _ProfileTabScreenState extends State<ProfileTabScreen> {
     Navigator.of(context).popUntil((route) => route.isFirst);
     Navigator.push(context,
         MaterialPageRoute(builder: (content) => const RegistrationScreen()));
+  }
+
+  void _updatePasswordDialog() {
+    TextEditingController _pass1editingController = TextEditingController();
+    TextEditingController _pass2editingController = TextEditingController();
+
+    showDialog(
+      context: context,
+      builder: (BuildContext context) {
+        return AlertDialog(
+          shape: const RoundedRectangleBorder(
+              borderRadius: BorderRadius.all(Radius.circular(10.0))),
+          title: const Text(
+            "Update Password",
+            style: TextStyle(),
+          ),
+          content: SizedBox(
+            height: screenHeight / 5,
+            child: Column(
+              children: [
+                TextField(
+                    controller: _pass1editingController,
+                    keyboardType: TextInputType.text,
+                    obscureText: true,
+                    decoration: const InputDecoration(
+                        labelText: 'New password',
+                        labelStyle: TextStyle(),
+                        icon: Icon(
+                          Icons.password,
+                        ),
+                        focusedBorder: OutlineInputBorder(
+                          borderSide: BorderSide(width: 2.0),
+                        ))),
+                TextField(
+                    controller: _pass2editingController,
+                    keyboardType: TextInputType.text,
+                    obscureText: true,
+                    decoration: const InputDecoration(
+                        labelText: 'Renter password',
+                        labelStyle: TextStyle(),
+                        icon: Icon(
+                          Icons.password,
+                        ),
+                        focusedBorder: OutlineInputBorder(
+                          borderSide: BorderSide(width: 2.0),
+                        ))),
+              ],
+            ),
+          ),
+          actions: <Widget>[
+            TextButton(
+              child: const Text(
+                "Confirm",
+                style: TextStyle(),
+              ),
+              onPressed: () {
+                if (_pass1editingController.text !=
+                    _pass2editingController.text) {
+                  ScaffoldMessenger.of(context).showSnackBar(const SnackBar(
+                      content: Text("Passwords are not the same")));
+                }
+                if (_pass1editingController.text.isEmpty ||
+                    _pass2editingController.text.isEmpty) {
+                  ScaffoldMessenger.of(context).showSnackBar(
+                      const SnackBar(content: Text("Please enter a password")));
+                  Navigator.of(context).pop();
+                }
+                http.post(
+                    Uri.parse(
+                        "${MyConfig().server}/barterit/php/update_profile.php"),
+                    body: {
+                      "password": _pass1editingController.text,
+                      "userid": widget.user.id
+                    }).then((response) {
+                  var data = jsonDecode(response.body);
+                  //  print(data);
+                  if (response.statusCode == 200 &&
+                      data['status'] == 'success') {
+                    ScaffoldMessenger.of(context).showSnackBar(
+                        const SnackBar(content: Text("Edit success")));
+                  } else {
+                    ScaffoldMessenger.of(context).showSnackBar(
+                        const SnackBar(content: Text("Edit failed")));
+                  }
+                });
+              },
+            ),
+            TextButton(
+              child: const Text(
+                "Cancel",
+                style: TextStyle(),
+              ),
+              onPressed: () {
+                Navigator.of(context).pop();
+              },
+            ),
+          ],
+        );
+      },
+    );
   }
 }

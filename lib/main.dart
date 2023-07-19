@@ -1,4 +1,4 @@
-import 'package:barterit/splashscreen.dart';
+import 'package:barterit/screens/shared/splashscreen.dart';
 import 'package:flutter/material.dart';
 
 void main() {

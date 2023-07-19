@@ -1,9 +1,9 @@
 import 'dart:async';
 import 'dart:convert';
 import 'package:barterit/models/user.dart';
-import 'package:barterit/myconfig.dart';
-import 'package:barterit/screens/loginscreen.dart';
-import 'package:barterit/screens/mainscreen.dart';
+import 'package:barterit/appconfig/myconfig.dart';
+import 'package:barterit/screens/shared/loginscreen.dart';
+import 'package:barterit/screens/shared/mainscreen.dart';
 import 'package:flutter/material.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:http/http.dart' as http;

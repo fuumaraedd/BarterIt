@@ -1,13 +1,13 @@
 import 'dart:convert';
 import 'dart:developer';
-import 'package:barterit/screens/editproductscreen.dart';
+import 'package:barterit/screens/seller/editproductscreen.dart';
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:barterit/models/product.dart';
 import 'package:barterit/models/user.dart';
 import 'package:http/http.dart' as http;
-import 'package:barterit/myconfig.dart';
-import 'package:barterit/screens/newproducttabscreen.dart';
+import 'package:barterit/appconfig/myconfig.dart';
+import 'package:barterit/screens/seller/newproducttabscreen.dart';
 
 class SellerTabScreen extends StatefulWidget {
   final User user;

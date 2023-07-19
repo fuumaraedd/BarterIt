@@ -1,12 +1,12 @@
 import 'dart:convert';
 
-import 'package:barterit/screens/mainscreen.dart';
+import 'package:barterit/screens/shared/mainscreen.dart';
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:barterit/models/cart.dart';
 import 'package:barterit/models/user.dart';
 import 'package:http/http.dart' as http;
-import 'package:barterit/myconfig.dart';
+import 'package:barterit/appconfig/myconfig.dart';
 
 class BuyerCartScreen extends StatefulWidget {
   final User user;

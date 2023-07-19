@@ -3,7 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
 import 'package:barterit/models/product.dart';
 import 'package:barterit/models/user.dart';
-import 'package:barterit/myconfig.dart';
+import 'package:barterit/appconfig/myconfig.dart';
 
 class SellerDetailsScreen extends StatefulWidget {
   final User user;

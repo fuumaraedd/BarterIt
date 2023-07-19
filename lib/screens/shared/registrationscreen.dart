@@ -1,6 +1,6 @@
 import 'dart:convert';
-import 'package:barterit/myconfig.dart';
-import 'package:barterit/screens/loginscreen.dart';
+import 'package:barterit/appconfig/myconfig.dart';
+import 'package:barterit/screens/shared/loginscreen.dart';
 import 'package:flutter/material.dart';
 import 'package:http/http.dart' as http;
 
@@ -267,15 +267,6 @@ class _RegistrationScreenState extends State<RegistrationScreen> {
   }
 
   void registerUser() {
-    showDialog(
-      context: context,
-      builder: (BuildContext context) {
-        return const AlertDialog(
-          title: Text("Please Wait"),
-          content: Text("Registration..."),
-        );
-      },
-    );
     String name = _nameEditingController.text;
     String email = _emailEditingController.text;
     String phone = _phoneEditingController.text;

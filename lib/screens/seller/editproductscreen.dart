@@ -4,7 +4,7 @@ import 'package:flutter/material.dart';
 import 'package:barterit/models/product.dart';
 import 'package:barterit/models/user.dart';
 import 'package:http/http.dart' as http;
-import 'package:barterit/myconfig.dart';
+import 'package:barterit/appconfig/myconfig.dart';
 
 class EditProductScreen extends StatefulWidget {
   final User user;

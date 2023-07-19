@@ -5,9 +5,8 @@ import 'dart:developer';
 
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:barterit/models/product.dart';
-import 'package:barterit/models/user.dart';
 import 'package:http/http.dart' as http;
-import 'package:barterit/myconfig.dart';
+import 'package:barterit/appconfig/myconfig.dart';
 
 import 'buyercartscreen.dart';
 import 'buyerdetailscreen.dart';
@@ -117,17 +116,24 @@ class _BuyerTabScreenState extends State<BuyerTabScreen> {
                                   elevation: 8,
                                   child: InkWell(
                                     onTap: () async {
-                                      Product userproduct = Product.fromJson(
-                                          productList[index].toJson());
-                                      await Navigator.push(
-                                          context,
-                                          MaterialPageRoute(
-                                              builder: (content) =>
-                                                  BuyerDetailsScreen(
-                                                    user: widget.user,
-                                                    userproduct: userproduct,
-                                                  )));
-                                      loadProducts(1);
+                                      if (widget.user.id == "na") {
+                                        ScaffoldMessenger.of(context)
+                                            .showSnackBar(const SnackBar(
+                                                content: Text(
+                                                    "Please login/register an account to a view product details")));
+                                      } else {
+                                        Product userproduct = Product.fromJson(
+                                            productList[index].toJson());
+                                        await Navigator.push(
+                                            context,
+                                            MaterialPageRoute(
+                                                builder: (content) =>
+                                                    BuyerDetailsScreen(
+                                                      user: widget.user,
+                                                      userproduct: userproduct,
+                                                    )));
+                                        loadProducts(1);
+                                      }
                                     },
                                     child: Padding(
                                       padding: const EdgeInsets.all(8.0),
@@ -182,9 +188,7 @@ class _BuyerTabScreenState extends State<BuyerTabScreen> {
                     itemCount: numofpage,
                     scrollDirection: Axis.horizontal,
                     itemBuilder: (context, index) {
-                      //build the list for textbutton with scroll
                       if ((curpage - 1) == index) {
-                        //set current page number active
                         colour = Colors.red;
                       } else {
                         colour = Colors.black;
@@ -220,7 +224,7 @@ class _BuyerTabScreenState extends State<BuyerTabScreen> {
       if (response.statusCode == 200) {
         var jsondata = jsonDecode(response.body);
         if (jsondata['status'] == "success") {
-          numofpage = int.parse(jsondata['numofpage']); //get number of pages
+          numofpage = int.parse(jsondata['numofpage']);
           numberofresult = int.parse(jsondata['numberofresult']);
           var extractdata = jsondata['data'];
           cartqty = int.parse(jsondata['cartqty'].toString());
