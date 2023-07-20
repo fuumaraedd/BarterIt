@@ -103,7 +103,7 @@ class _SellerTabScreenState extends State<SellerTabScreen> {
                                     width: screenWidth,
                                     fit: BoxFit.cover,
                                     imageUrl:
-                                        "${MyConfig().server}/barterit/assets/products/${productList[index].productId}a.png",
+                                        "${MyConfig().server}/barteritV2/assets/products/${productList[index].productId}a.png",
                                     placeholder: (context, url) =>
                                         const LinearProgressIndicator(),
                                     errorWidget: (context, url, error) =>
@@ -227,7 +227,8 @@ class _SellerTabScreenState extends State<SellerTabScreen> {
   }
 
   void deleteProduct(int index) {
-    http.post(Uri.parse("${MyConfig().server}/barterit/php/delete_product.php"),
+    http.post(
+        Uri.parse("${MyConfig().server}/barteritV2/php/delete_product.php"),
         body: {
           "userid": widget.user.id,
           "productid": productList[index].productId
@@ -250,7 +251,7 @@ class _SellerTabScreenState extends State<SellerTabScreen> {
       setState(() {});
       return;
     }
-    http.post(Uri.parse("${MyConfig().server}/barterit/php/load_product.php"),
+    http.post(Uri.parse("${MyConfig().server}/barteritV2/php/load_product.php"),
         body: {
           "cartuserid": widget.user.id,
           "pageno": pg.toString()
@@ -283,7 +284,7 @@ class _SellerTabScreenState extends State<SellerTabScreen> {
       return;
     }
 
-    http.post(Uri.parse("${MyConfig().server}/barterit/php/load_product.php"),
+    http.post(Uri.parse("${MyConfig().server}/barteritV2/php/load_product.php"),
         body: {
           "userid": widget.user.id,
           "pageno": pg.toString()

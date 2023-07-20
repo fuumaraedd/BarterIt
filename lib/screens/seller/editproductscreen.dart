@@ -92,7 +92,7 @@ class _EditProductScreenState extends State<EditProductScreen> {
                     width: screenWidth,
                     fit: BoxFit.cover,
                     imageUrl:
-                        "${MyConfig().server}/barterit/assets/products/${widget.userproduct.productId}a.png",
+                        "${MyConfig().server}/barteritV2/assets/products/${widget.userproduct.productId}a.png",
                     placeholder: (context, url) =>
                         const LinearProgressIndicator(),
                     errorWidget: (context, url, error) =>
@@ -365,7 +365,8 @@ class _EditProductScreenState extends State<EditProductScreen> {
     String productpr = _productprEditingController.text;
     String productcondition = currentCondition.toString();
 
-    http.post(Uri.parse("${MyConfig().server}/barterit/php/update_product.php"),
+    http.post(
+        Uri.parse("${MyConfig().server}/barteritV2/php/update_product.php"),
         body: {
           "productid": widget.userproduct.productId,
           "productname": productname,

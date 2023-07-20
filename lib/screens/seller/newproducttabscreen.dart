@@ -413,7 +413,8 @@ class _NewProductTabScreenState extends State<NewProductTabScreen> {
     String base64Image2 = base64Encode(_imageList[1].readAsBytesSync());
     String base64Image3 = base64Encode(_imageList[2].readAsBytesSync());
 
-    http.post(Uri.parse("${MyConfig().server}/barterit/php/insert_product.php"),
+    http.post(
+        Uri.parse("${MyConfig().server}/barteritV2/php/insert_product.php"),
         body: {
           "userid": widget.user.id.toString(),
           "productname": productname,

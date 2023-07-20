@@ -37,7 +37,7 @@ class _SellerDetailsScreenState extends State<SellerDetailsScreen> {
                     width: screenWidth,
                     fit: BoxFit.cover,
                     imageUrl:
-                        "${MyConfig().server}/barterit/assets/products/${widget.userproduct.productId}a.png",
+                        "${MyConfig().server}/barteritV2/assets/products/${widget.userproduct.productId}a.png",
                     placeholder: (context, url) =>
                         const LinearProgressIndicator(),
                     errorWidget: (context, url, error) =>

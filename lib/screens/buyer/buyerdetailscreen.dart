@@ -12,7 +12,10 @@ class BuyerDetailsScreen extends StatefulWidget {
   final Product userproduct;
   final User user;
   const BuyerDetailsScreen(
-      {super.key, required this.userproduct, required this.user});
+      {super.key,
+      required this.userproduct,
+      required this.user,
+      required int page});
 
   @override
   State<BuyerDetailsScreen> createState() => _BuyerDetailsScreenState();
@@ -336,7 +339,7 @@ class _BuyerDetailsScreenState extends State<BuyerDetailsScreen> {
   }
 
   void addtocart() {
-    http.post(Uri.parse("${MyConfig().server}/barterit/php/add_to_cart.php"),
+    http.post(Uri.parse("${MyConfig().server}/barteritV2/php/add_to_cart.php"),
         body: {
           "product_id": widget.userproduct.productId.toString(),
           "cart_qty": userqty.toString(),
@@ -375,7 +378,7 @@ class _BuyerDetailsScreenState extends State<BuyerDetailsScreen> {
               width: screenWidth,
               fit: BoxFit.fitWidth,
               imageUrl:
-                  "${MyConfig().server}/barterit/assets/products/${widget.userproduct.productId}a.png",
+                  "${MyConfig().server}/barteritV2/assets/products/${widget.userproduct.productId}a.png",
               placeholder: (context, url) => const LinearProgressIndicator(),
               errorWidget: (context, url, error) => const Icon(Icons.error),
             ),
@@ -397,7 +400,7 @@ class _BuyerDetailsScreenState extends State<BuyerDetailsScreen> {
               width: screenWidth,
               fit: BoxFit.fitWidth,
               imageUrl:
-                  "${MyConfig().server}/barterit/assets/products/${widget.userproduct.productId}b.png",
+                  "${MyConfig().server}/barteritV2/assets/products/${widget.userproduct.productId}b.png",
               placeholder: (context, url) => const LinearProgressIndicator(),
               errorWidget: (context, url, error) => const Icon(Icons.error),
             ),
@@ -419,7 +422,7 @@ class _BuyerDetailsScreenState extends State<BuyerDetailsScreen> {
               width: screenWidth,
               fit: BoxFit.fitWidth,
               imageUrl:
-                  "${MyConfig().server}/barterit/assets/products/${widget.userproduct.productId}c.png",
+                  "${MyConfig().server}/barteritV2/assets/products/${widget.userproduct.productId}c.png",
               placeholder: (context, url) => const LinearProgressIndicator(),
               errorWidget: (context, url, error) => const Icon(Icons.error),
             ),
@@ -441,7 +444,7 @@ class _BuyerDetailsScreenState extends State<BuyerDetailsScreen> {
                 width: screenWidth,
                 fit: BoxFit.fitWidth,
                 imageUrl:
-                    "${MyConfig().server}/barterit/assets/products/${widget.userproduct.productId}c.png"),
+                    "${MyConfig().server}/barteritV2/assets/products/${widget.userproduct.productId}c.png"),
           );
         });
   }
@@ -458,7 +461,7 @@ class _BuyerDetailsScreenState extends State<BuyerDetailsScreen> {
                 width: screenWidth,
                 fit: BoxFit.fitWidth,
                 imageUrl:
-                    "${MyConfig().server}/barterit/assets/products/${widget.userproduct.productId}b.png"),
+                    "${MyConfig().server}/barteritV2/assets/products/${widget.userproduct.productId}b.png"),
           );
         });
   }
@@ -475,7 +478,7 @@ class _BuyerDetailsScreenState extends State<BuyerDetailsScreen> {
                 width: screenWidth,
                 fit: BoxFit.fitWidth,
                 imageUrl:
-                    "${MyConfig().server}/barterit/assets/products/${widget.userproduct.productId}a.png"),
+                    "${MyConfig().server}/barteritV2/assets/products/${widget.userproduct.productId}a.png"),
           );
         });
   }

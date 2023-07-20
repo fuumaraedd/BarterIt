@@ -272,7 +272,8 @@ class _RegistrationScreenState extends State<RegistrationScreen> {
     String phone = _phoneEditingController.text;
     String password = _pass1EditingController.text;
 
-    http.post(Uri.parse("${MyConfig().server}/barterit/php/register_user.php"),
+    http.post(
+        Uri.parse("${MyConfig().server}/barteritV2/php/register_user.php"),
         body: {
           "name": name,
           "email": email,

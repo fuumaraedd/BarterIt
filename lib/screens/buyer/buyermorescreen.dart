@@ -80,6 +80,7 @@ class _BuyerMoreScreenState extends State<BuyerMoreScreen> {
                                       builder: (content) => BuyerDetailsScreen(
                                             user: widget.user,
                                             userproduct: userproduct,
+                                            page: 1,
                                           )));
                             },
                             child: Column(children: [
@@ -87,7 +88,7 @@ class _BuyerMoreScreenState extends State<BuyerMoreScreen> {
                                 width: screenWidth,
                                 fit: BoxFit.cover,
                                 imageUrl:
-                                    "${MyConfig().server}/barterit/assets/products/${productList[index].productId}.png",
+                                    "${MyConfig().server}/barteritV2/assets/products/${productList[index].productId}.png",
                                 placeholder: (context, url) =>
                                     const LinearProgressIndicator(),
                                 errorWidget: (context, url, error) =>
@@ -116,7 +117,7 @@ class _BuyerMoreScreenState extends State<BuyerMoreScreen> {
 
   void loadSellerItems() {
     http.post(
-        Uri.parse("${MyConfig().server}/barterit/php/load_singleseller.php"),
+        Uri.parse("${MyConfig().server}/barteritV2/php/load_singleseller.php"),
         body: {
           "sellerid": widget.userproduct.userId,
         }).then((response) {
@@ -135,7 +136,7 @@ class _BuyerMoreScreenState extends State<BuyerMoreScreen> {
   }
 
   void loadSeller() {
-    http.post(Uri.parse("${MyConfig().server}/barterit/php/load_user.php"),
+    http.post(Uri.parse("${MyConfig().server}/barteritV2/php/load_user.php"),
         body: {
           "userid": widget.userproduct.userId,
         }).then((response) {

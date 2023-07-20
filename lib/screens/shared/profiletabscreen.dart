@@ -47,13 +47,22 @@ class _ProfileTabScreenState extends State<ProfileTabScreen> {
               elevation: 8,
               child:
                   Row(mainAxisAlignment: MainAxisAlignment.center, children: [
-                Container(
-                  margin: const EdgeInsets.all(4),
-                  width: screenWidth * 0.4,
-                  child: Image.asset(
-                    "assets/images/profile.png",
+                if (!isButtonActive)
+                  Container(
+                    margin: const EdgeInsets.all(4),
+                    width: screenWidth * 0.4,
+                    child: Image.asset(
+                      "assets/images/profile2.png",
+                    ),
                   ),
-                ),
+                if (isButtonActive)
+                  Container(
+                    margin: const EdgeInsets.all(4),
+                    width: screenWidth * 0.4,
+                    child: Image.asset(
+                      "assets/images/profile.png",
+                    ),
+                  ),
                 Expanded(
                     flex: 6,
                     child: Column(
@@ -141,7 +150,7 @@ class _ProfileTabScreenState extends State<ProfileTabScreen> {
                     onPressed: onLogoutDialog,
                     child: const Text("LOGOUT"),
                   ),
-                if (!isButtonActive) const SizedBox(height: 110),
+                if (!isButtonActive) const SizedBox(height: 180),
                 if (!isButtonActive)
                   ElevatedButton(
                     onPressed: onLoginDialog,
@@ -210,7 +219,7 @@ class _ProfileTabScreenState extends State<ProfileTabScreen> {
     String password = (prefs.getString('pass')) ?? '';
     late User user;
     if (email.length > 1 && password.length > 1) {
-      http.post(Uri.parse("${MyConfig().server}/barterit/php/login_user.php"),
+      http.post(Uri.parse("${MyConfig().server}/barteritV2/php/login_user.php"),
           body: {"email": email, "password": password}).then((response) async {
         if (response.statusCode == 200 && response.body != "failed") {
           prefs = await SharedPreferences.getInstance();
@@ -254,7 +263,7 @@ class _ProfileTabScreenState extends State<ProfileTabScreen> {
                 try {
                   http.post(
                       Uri.parse(
-                          "${MyConfig().server}/barterit/php/update_profile.php"),
+                          "${MyConfig().server}/barteritV2/php/update_profile.php"),
                       body: {
                         "newname": _nameeditingController.text,
                         "userid": widget.user.id
@@ -320,7 +329,7 @@ class _ProfileTabScreenState extends State<ProfileTabScreen> {
                 try {
                   http.post(
                       Uri.parse(
-                          "${MyConfig().server}/barterit/php/update_profile.php"),
+                          "${MyConfig().server}/barteritV2/php/update_profile.php"),
                       body: {
                         "newphone": _phoneeditingController.text,
                         "userid": widget.user.id
@@ -386,7 +395,7 @@ class _ProfileTabScreenState extends State<ProfileTabScreen> {
                 try {
                   http.post(
                       Uri.parse(
-                          "${MyConfig().server}/barterit/php/update_profile.php"),
+                          "${MyConfig().server}/barteritV2/php/update_profile.php"),
                       body: {
                         "newemail": _emaileditingController.text,
                         "userid": widget.user.id
@@ -512,7 +521,7 @@ class _ProfileTabScreenState extends State<ProfileTabScreen> {
                 }
                 http.post(
                     Uri.parse(
-                        "${MyConfig().server}/barterit/php/update_profile.php"),
+                        "${MyConfig().server}/barteritV2/php/update_profile.php"),
                     body: {
                       "password": _pass1editingController.text,
                       "userid": widget.user.id

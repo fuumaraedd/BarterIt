@@ -142,10 +142,9 @@ class _BuyerOrderScreenState extends State<BuyerOrderScreen> {
 
   void loadsellerorders() {
     http.post(
-        Uri.parse("${MyConfig().server}/barterit/php/load_buyerorder.php"),
+        Uri.parse("${MyConfig().server}/barteritV2/php/load_buyerorder.php"),
         body: {"buyerid": widget.user.id}).then((response) {
       log(response.body);
-      //orderList.clear();
       if (response.statusCode == 200) {
         var jsondata = jsonDecode(response.body);
         if (jsondata['status'] == "success") {
@@ -153,7 +152,6 @@ class _BuyerOrderScreenState extends State<BuyerOrderScreen> {
           extractdata['orders'].forEach((v) {
             orderList.add(Order.fromJson(v));
           });
-          // print(orderList[0].catchName);
         } else {
           status = "Please register an account first";
           setState(() {});

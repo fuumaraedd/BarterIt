@@ -120,7 +120,7 @@ class _BuyerOrderDetailsScreenState extends State<BuyerOrderDetailsScreen> {
                               width: screenWidth / 3,
                               fit: BoxFit.cover,
                               imageUrl:
-                                  "${MyConfig().server}/barterit/assets/products/${orderdetailsList[index].productId}.png",
+                                  "${MyConfig().server}/barteritV2/assets/products/${orderdetailsList[index].productId}.png",
                               placeholder: (context, url) =>
                                   const LinearProgressIndicator(),
                               errorWidget: (context, url, error) =>
@@ -158,40 +158,6 @@ class _BuyerOrderDetailsScreenState extends State<BuyerOrderDetailsScreen> {
                         ),
                       );
                     })),
-        // Container(
-        //   // color: Colors.red,
-        //   width: screenWidth,
-        //   height: screenHeight * 0.1,
-        //   child: Card(
-        //     child: Row(
-        //         mainAxisAlignment: MainAxisAlignment.spaceAround,
-        //         children: [
-        //           Text("Set Order Status"),
-        //           DropdownButton(
-        //             itemHeight: 60,
-        //             value: selectStatus,
-        //             onChanged: (newValue) {
-        //               setState(() {
-        //                 selectStatus = newValue.toString();
-        //               });
-        //             },
-        //             items: statusList.map((selectStatus) {
-        //               return DropdownMenuItem(
-        //                 value: selectStatus,
-        //                 child: Text(
-        //                   selectStatus,
-        //                 ),
-        //               );
-        //             }).toList(),
-        //           ),
-        //           ElevatedButton(
-        //               onPressed: () {
-        //                 submitStatus(selectStatus);
-        //               },
-        //               child: Text("Submit"))
-        //         ]),
-        //   ),
-        // )
       ]),
     );
   }
@@ -199,7 +165,7 @@ class _BuyerOrderDetailsScreenState extends State<BuyerOrderDetailsScreen> {
   void loadorderdetails() {
     http.post(
         Uri.parse(
-            "${MyConfig().server}/barterit/php/load_buyerorderdetails.php"),
+            "${MyConfig().server}/barteritV2/php/load_buyerorderdetails.php"),
         body: {
           "buyerid": widget.order.buyerId,
           "orderbill": widget.order.orderBill,
@@ -214,17 +180,14 @@ class _BuyerOrderDetailsScreenState extends State<BuyerOrderDetailsScreen> {
           extractdata['orderdetails'].forEach((v) {
             orderdetailsList.add(OrderDetails.fromJson(v));
           });
-        } else {
-          // status = "Please register an account first";
-          // setState(() {});
-        }
+        } else {}
         setState(() {});
       }
     });
   }
 
   void loadbuyer() {
-    http.post(Uri.parse("${MyConfig().server}/barterit/php/load_user.php"),
+    http.post(Uri.parse("${MyConfig().server}/barteritV2/php/load_user.php"),
         body: {
           "userid": widget.order.buyerId,
         }).then((response) {
@@ -238,27 +201,4 @@ class _BuyerOrderDetailsScreenState extends State<BuyerOrderDetailsScreen> {
       setState(() {});
     });
   }
-
-  // void submitStatus(String st) {
-  //   http.post(
-  //       Uri.parse("${MyConfig().SERVER}/mynelayan/php/set_orderstatus.php"),
-  //       body: {"orderid": widget.order.orderId, "status": st}).then((response) {
-  //     log(response.body);
-  //     //orderList.clear();
-  //     if (response.statusCode == 200) {
-  //       var jsondata = jsonDecode(response.body);
-  //       if (jsondata['status'] == "success") {
-  //       } else {}
-  //       widget.order.orderStatus = st;
-  //       selectStatus = st;
-  //       setState(() {});
-  //       Fluttertoast.showToast(
-  //           msg: "Success",
-  //           toastLength: Toast.LENGTH_SHORT,
-  //           gravity: ToastGravity.CENTER,
-  //           timeInSecForIosWeb: 1,
-  //           fontSize: 16.0);
-  //     }
-  //   });
-  // }
 }

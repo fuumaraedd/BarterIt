@@ -55,7 +55,7 @@ class _BuyerCartScreenState extends State<BuyerCartScreen> {
                                 width: screenWidth / 3,
                                 fit: BoxFit.cover,
                                 imageUrl:
-                                    "${MyConfig().server}/barterit/assets/products/${cartList[index].productId}a.png",
+                                    "${MyConfig().server}/barteritV2/assets/products/${cartList[index].productId}a.png",
                                 placeholder: (context, url) =>
                                     const LinearProgressIndicator(),
                                 errorWidget: (context, url, error) =>
@@ -190,7 +190,7 @@ class _BuyerCartScreenState extends State<BuyerCartScreen> {
       setState(() {});
       return;
     }
-    http.post(Uri.parse("${MyConfig().server}/barterit/php/load_cart.php"),
+    http.post(Uri.parse("${MyConfig().server}/barteritV2/php/load_cart.php"),
         body: {
           "userid": widget.user.id,
         }).then((response) {
@@ -266,7 +266,7 @@ class _BuyerCartScreenState extends State<BuyerCartScreen> {
   }
 
   void deleteCart(int index) {
-    http.post(Uri.parse("${MyConfig().server}/barterit/php/delete_cart.php"),
+    http.post(Uri.parse("${MyConfig().server}/barteritV2/php/delete_cart.php"),
         body: {
           "cartid": cartList[index].cartId,
         }).then((response) {
@@ -289,7 +289,7 @@ class _BuyerCartScreenState extends State<BuyerCartScreen> {
   }
 
   void updateCart(int index, int newqty, double newprice) {
-    http.post(Uri.parse("${MyConfig().server}/barterit/php/update_cart.php"),
+    http.post(Uri.parse("${MyConfig().server}/barteritV2/php/update_cart.php"),
         body: {
           "cartid": cartList[index].cartId,
           "newqty": newqty.toString(),

@@ -159,6 +159,7 @@ class _BuyerTabScreenState extends State<BuyerTabScreen> {
                                                     BuyerDetailsScreen(
                                                       user: widget.user,
                                                       userproduct: userproduct,
+                                                      page: curpage,
                                                     )));
                                         loadProducts(1);
                                       }
@@ -170,7 +171,7 @@ class _BuyerTabScreenState extends State<BuyerTabScreen> {
                                           width: screenWidth,
                                           fit: BoxFit.cover,
                                           imageUrl:
-                                              "${MyConfig().server}/barterit/assets/products/${productList[index].productId}a.png",
+                                              "${MyConfig().server}/barteritV2/assets/products/${productList[index].productId}a.png",
                                           placeholder: (context, url) =>
                                               const LinearProgressIndicator(),
                                           errorWidget: (context, url, error) =>
@@ -242,7 +243,7 @@ class _BuyerTabScreenState extends State<BuyerTabScreen> {
     if (widget.user.id == "na") {
       cartqty = 0;
     }
-    http.post(Uri.parse("${MyConfig().server}/barterit/php/load_product.php"),
+    http.post(Uri.parse("${MyConfig().server}/barteritV2/php/load_product.php"),
         body: {
           "cartuserid": widget.user.id,
           "pageno": pg.toString()
@@ -317,7 +318,7 @@ class _BuyerTabScreenState extends State<BuyerTabScreen> {
   }
 
   void searchProducts(String search) {
-    http.post(Uri.parse("${MyConfig().server}/barterit/php/load_product.php"),
+    http.post(Uri.parse("${MyConfig().server}/barteritV2/php/load_product.php"),
         body: {
           "cartuserid": widget.user.id,
           "search": search
