@@ -11,7 +11,6 @@ import 'package:http/http.dart' as http;
 class BuyerDetailsScreen extends StatefulWidget {
   final Product userproduct;
   final User user;
-  // const ImageDialog(this.link, {Key?:key}) : super(key: key);
   const BuyerDetailsScreen(
       {super.key, required this.userproduct, required this.user});
 

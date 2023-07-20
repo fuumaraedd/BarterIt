@@ -87,7 +87,7 @@ class _BuyerMoreScreenState extends State<BuyerMoreScreen> {
                                 width: screenWidth,
                                 fit: BoxFit.cover,
                                 imageUrl:
-                                    "${MyConfig().server}/barterit/assets/productes/${productList[index].productId}.png",
+                                    "${MyConfig().server}/barterit/assets/products/${productList[index].productId}.png",
                                 placeholder: (context, url) =>
                                     const LinearProgressIndicator(),
                                 errorWidget: (context, url, error) =>

@@ -10,6 +10,7 @@ import 'package:barterit/appconfig/myconfig.dart';
 
 import 'buyercartscreen.dart';
 import 'buyerdetailscreen.dart';
+import 'buyerorderscreen.dart';
 
 class BuyerTabScreen extends StatefulWidget {
   final User user;
@@ -87,7 +88,34 @@ class _BuyerTabScreenState extends State<BuyerTabScreen> {
                 }
               }
             },
-          )
+          ),
+          PopupMenuButton(itemBuilder: (context) {
+            return [
+              const PopupMenuItem<int>(
+                value: 0,
+                child: Text("My Order"),
+              ),
+              const PopupMenuItem<int>(
+                value: 1,
+                child: Text("New"),
+              ),
+            ];
+          }, onSelected: (value) async {
+            if (value == 0) {
+              if (widget.user.id.toString() == "na") {
+                ScaffoldMessenger.of(context).showSnackBar(const SnackBar(
+                    content: Text("Please login/register an account")));
+                return;
+              }
+              await Navigator.push(
+                  context,
+                  MaterialPageRoute(
+                      builder: (content) => BuyerOrderScreen(
+                            user: widget.user,
+                          )));
+            } else if (value == 1) {
+            } else if (value == 2) {}
+          }),
         ],
       ),
       body: productList.isEmpty

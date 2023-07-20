@@ -140,10 +140,6 @@ class _BuyerOrderScreenState extends State<BuyerOrderScreen> {
     );
   }
 
-  //  Text(orderList[index].orderBill.toString()),
-  //                               Text(orderList[index].orderStatus.toString()),
-  //                               Text(orderList[index].orderPaid.toString()),
-
   void loadsellerorders() {
     http.post(
         Uri.parse("${MyConfig().server}/barterit/php/load_buyerorder.php"),

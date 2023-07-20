@@ -8,6 +8,8 @@ import 'package:barterit/models/user.dart';
 import 'package:http/http.dart' as http;
 import 'package:barterit/appconfig/myconfig.dart';
 
+import 'billscreen.dart';
+
 class BuyerCartScreen extends StatefulWidget {
   final User user;
   const BuyerCartScreen({super.key, required this.user});
@@ -168,8 +170,9 @@ class _BuyerCartScreenState extends State<BuyerCartScreen> {
                           await Navigator.push(
                               context,
                               MaterialPageRoute(
-                                  builder: (content) => MainScreen(
+                                  builder: (content) => BillScreen(
                                         user: widget.user,
+                                        totalprice: totalprice,
                                       )));
                           loadcart();
                         },
